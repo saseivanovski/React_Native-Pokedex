@@ -31,27 +31,17 @@ export default function PokemonScreen({ navigation, route }: Props) {
   const dispatch = useAppDispatch();
 
   const handleSaveRemove = () => {
-    if (pokemons.length > 0) {
-      pokemons.map((item) => {
-        if (item.pokemon.id.includes(simplePokemon.id)) {
-          dispatch(pokemonRemoved(simplePokemon.id));
-        } else {
-          dispatch(
-            pokemonAdded({
-              simplePokemon: simplePokemon,
-              color: color,
-            })
-          );
-        }
-      });
-    } else {
-      dispatch(
-        pokemonAdded({
-          simplePokemon: simplePokemon,
-          color: color,
-        })
-      );
-    }
+    dispatch(
+      pokemonAdded({
+        simplePokemon: simplePokemon,
+        color: color,
+      })
+    );
+    pokemons.map((item) => {
+      if (item.pokemon.id === simplePokemon.id) {
+        dispatch(pokemonRemoved(simplePokemon.id));
+      }
+    });
   };
 
   useEffect(() => {
